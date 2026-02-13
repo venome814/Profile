@@ -1,46 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Discord Profile</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-
-    <div id="cursor-glow"></div>
-
-    <div class="night">
-        <div class="shooting_star"></div>
-        <div class="shooting_star"></div>
-        <div class="shooting_star"></div>
-        <div class="shooting_star"></div>
-        <div class="shooting_star"></div>
-    </div>
-
-    <div class="glass-card">
-        <a href="https://discord.com/users/YOUR_DISCORD_ID" target="_blank" class="profile-link">
-            <div class="avatar-wrapper">
-                <img id="avatar" src="https://via.placeholder.com/100" alt="Avatar">
-                <div id="status-dot"></div>
-            </div>
-            <h1 id="username">Loading...</h1>
-            <p id="status-text">Fetching live status...</p>
-        </a>
-
-        <div class="divider"></div>
-
-        <div class="music-player">
-            <p class="now-playing">SYSTEM AUDIO</p>
-            <div class="controls">
-                <button id="playBtn">PLAY</button>
-                <span id="timer">0:00 / 0:00</span>
-            </div>
-            <audio id="myAudio" src="YOUR_DIRECT_MUSIC_URL_HERE"></audio>
+<div class="glass-card">
+    <h2 class="APEX" id="APEX">Loading Server...</h2>
+    
+    <div class="stats-grid">
+        <div class="stat-item">
+            <span class="stat-label">MEMBERS</span>
+            <span class="stat-value" id="memberCount">0</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">ONLINE</span>
+            <span class="stat-value" id="onlineCount" style="color: #43b581;">0</span>
         </div>
     </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <div class="divider"></div>
+
+    <div class="vc-section">
+        <p class="now-playing">LIVE VOICE ACTIVITY</p>
+        <div id="vc-list">
+            <p style="font-size: 0.8rem; opacity: 0.5;">No active channels</p>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="music-player">
+        <button id="playBtn">PLAY MUSIC</button>
+        <span id="timer">0:00 / 0:00</span>
+        <audio id="myAudio" src="YOUR_MP3_URL"></audio>
+    </div>
+    
+    <a href="YOUR_INVITE_LINK" target="_blank" class="join-btn">JOIN SERVER</a>
+</div>
