@@ -1,129 +1,51 @@
-:root {
-    --discord-blue: #5865F2;
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.1);
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    background: #000;
-    color: white;
-    font-family: 'Inter', sans-serif;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-/* Mouse Glow */
-#cursor-glow {
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(88, 101, 242, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-}
-
-/* Glass Card */
-.glass-card {
-    position: relative;
-    z-index: 10;
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    padding: 40px;
-    border-radius: 24px;
-    width: 320px;
-    text-align: center;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-}
-
-/* Profile Section */
-.profile-link {
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.3s ease;
-    display: block;
-}
-
-.profile-link:hover {
-    transform: translateY(-8px);
-}
-
-.avatar-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-#avatar {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    border: 3px solid var(--glass-border);
-    transition: 0.3s;
-}
-
-.profile-link:hover #avatar {
-    border-color: var(--discord-blue);
-    box-shadow: 0 0 25px rgba(88, 101, 242, 0.4);
-}
-
-#status-dot {
-    width: 22px;
-    height: 22px;
-    background: #747f8d;
-    border: 4px solid #0a0a0a;
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    border-radius: 50%;
-}
-
-h1 { margin: 15px 0 5px; font-size: 1.6rem; letter-spacing: -0.5px; }
-#status-text { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; }
-
-.divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
     margin: 20px 0;
 }
 
-/* Music Player */
-.now-playing { font-size: 0.7rem; color: var(--discord-blue); letter-spacing: 2px; margin-bottom: 10px; }
-#playBtn {
-    background: white;
-    color: black;
-    border: none;
-    padding: 8px 20px;
+.stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 5px;
+    opacity: 0.7;
+}
+
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.join-btn {
+    display: block;
+    margin-top: 20px;
+    background: var(--discord-blue);
+    color: white;
+    text-decoration: none;
+    padding: 12px;
     border-radius: 8px;
     font-weight: bold;
-    cursor: pointer;
-    font-size: 0.8rem;
     transition: 0.3s;
 }
-#playBtn:hover { transform: scale(1.05); background: var(--discord-blue); color: white; }
-#timer { display: block; margin-top: 10px; font-size: 0.8rem; opacity: 0.6; }
 
-/* Shooting Stars */
-.night { position: absolute; width: 100%; height: 100%; transform: rotateZ(45deg); }
-.shooting_star {
-    position: absolute;
-    height: 2px;
-    background: linear-gradient(-45deg, #5f91ff, rgba(0,0,255,0));
-    filter: drop-shadow(0 0 6px #699bff);
-    animation: tail 3s ease-in-out infinite, shooting 3s ease-in-out infinite;
+.join-btn:hover {
+    background: #4752c4;
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
 }
 
-@keyframes tail { 0% { width: 0; } 30% { width: 100px; } 100% { width: 0; } }
-@keyframes shooting { 0% { transform: translateX(0); } 100% { transform: translateX(300px); } }
-
-/* Positioning stars randomly */
-.shooting_star:nth-child(1) { top: 20%; left: 30%; animation-delay: 0s; }
-.shooting_star:nth-child(2) { top: 50%; left: 10%; animation-delay: 1s; }
-.shooting_star:nth-child(3) { top: 10%; left: 70%; animation-delay: 2s; }
+#vc-list p {
+    background: rgba(255,255,255,0.05);
+    padding: 8px;
+    border-radius: 5px;
+    margin: 5px 0;
+    font-size: 0.85rem;
+}
