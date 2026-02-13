@@ -1,61 +1,35 @@
-const USER_ID = '1433079566397735064'; // <--- PUT YOUR ID HERE
-const audio = document.getElementById('myAudio');
-const playBtn = document.getElementById('playBtn');
-const timer = document.getElementById('timer');
-const glow = document.getElementById('cursor-glow');
+const SERVER_ID = '1469997588374880277'; // Replace with your Server ID
 
-// 1. Mouse Follower Logic
-window.addEventListener('mousemove', (e) => {
-    glow.style.left = e.clientX + 'px';
-    glow.style.top = e.clientY + 'px';
-});
-
-// 2. Fetch Live Discord Data (Lanyard API)
-async function updateStatus() {
+async function fetchServerStats() {
     try {
-        const res = await fetch(`https://api.lanyard.rest/v1/users/${USER_ID}`);
-        const data = await res.json();
-        
-        if (data.success) {
-            const { discord_user, discord_status, activities } = data.data;
-            
-            // Set User Info
-            document.getElementById('username').innerText = discord_user.username;
-            document.getElementById('avatar').src = `https://cdn.discordapp.com/avatars/${USER_ID}/${discord_user.avatar}.png`;
-            
-            // Set Status Text
-            const activity = activities.find(a => a.type === 0); // Playing status
-            document.getElementById('status-text').innerText = activity ? activity.name : discord_status.toUpperCase();
+        const response = await fetch(`https://discord.com/api/guilds/${SERVER_ID}/widget.json`);
+        const data = await response.json();
 
-            // Set Status Color
-            const colors = { online: '#43b581', idle: '#faa61a', dnd: '#f04747', offline: '#747f8d' };
-            document.getElementById('status-dot').style.background = colors[discord_status] || '#747f8d';
+        // Update Name and Counts
+        document.getElementById('serverName').innerText = data.name;
+        document.getElementById('onlineCount').innerText = data.presence_count;
+        
+        // Note: The public widget API shows "presence_count" (Online). 
+        // Total members usually requires a bot, but we can approximate or use online.
+        document.getElementById('memberCount').innerText = data.members.length + "+";
+
+        // Update Voice Channels
+        const vcList = document.getElementById('vc-list');
+        const activeVCs = data.channels.filter(c => c.name); // Channels with people in them
+
+        if (activeVCs.length > 0) {
+            vcList.innerHTML = activeVCs.slice(0, 3).map(channel => `
+                <p>🔊 ${channel.name}</p>
+            `).join('');
+        } else {
+            vcList.innerHTML = '<p style="font-size: 0.8rem; opacity: 0.5;">Silence in VC...</p>';
         }
-    } catch (err) {
-        console.error("Error fetching Lanyard data");
+
+    } catch (error) {
+        console.error("Failed to fetch server stats. Make sure Widget is enabled in Discord settings.");
     }
 }
 
-// 3. Music Player Logic
-playBtn.addEventListener('click', () => {
-    if (audio.paused) {
-        audio.play();
-        playBtn.innerText = "PAUSE";
-    } else {
-        audio.pause();
-        playBtn.innerText = "PLAY";
-    }
-});
-
-audio.addEventListener('timeupdate', () => {
-    const format = (s) => {
-        const m = Math.floor(s / 60);
-        const sec = Math.floor(s % 60);
-        return `${m}:${sec < 10 ? '0' : ''}${sec}`;
-    };
-    timer.innerText = `${format(audio.currentTime)} / ${format(audio.duration || 0)}`;
-});
-
-// Refresh status every 15 seconds
-setInterval(updateStatus, 15000);
-updateStatus();
+// Refresh every 30 seconds
+setInterval(fetchServerStats, 30000);
+fetchServerStats();
